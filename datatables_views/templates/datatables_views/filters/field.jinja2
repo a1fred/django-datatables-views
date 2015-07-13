@@ -1,0 +1,15 @@
+{% if field.searching %}
+        <div><label for="col{{ counter }}_filter">{{ field.name }}</label></div>
+        <div>
+            {% if field.search_choices %}
+                <select class="column_filter" id="col{{ counter }}_filter">
+                    <option value="">Все</option>
+                    {% for c in field.search_choices %}
+                        <option value="{{ c }}">{{ c }}</option>
+                    {% endfor %}
+                </select>
+            {% else %}
+                <input type="search" class="column_filter" id="col{{ counter }}_filter">
+            {% endif %}
+        </div>
+{% endif %}

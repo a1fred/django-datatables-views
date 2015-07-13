@@ -1,0 +1,70 @@
+{% extends "base.jinja2" %}
+
+{% block js %}
+    {{ super() }}
+    <script>
+        $(document).ready(function() {
+            $('#{{ table_id }}').dataTable( {
+                "ajax": {
+                    "url": "",
+                    "type": "POST",
+                    "data":{
+                         'csrfmiddlewaretoken': "{{ csrf_token }}"
+                    }
+                },
+                "language": { url: '{{ static('datatables/Languages/Russian.json') }}'},
+                "searching": true,
+                "columnDefs": [
+                    {% for field in table_fields %}
+                        {
+                            "targets": [ {{ loop.index0 }} ],
+                            "type": "{{ field.field_type }}",
+                            "title": "{{ field.name }}",
+                            "visible": {{ "false" if field.hidden else "true" }},
+                            "searchable": {{ "true" if field.searching else "false" }},
+
+                            {% if field.className %}
+                                "className": "{{ field.className }}",
+                            {% endif %}
+                            {% if field.className %}
+                                "cellType": "{{ field.cellType }}",
+                            {% endif %}
+
+                            "orderable": {{ "true" if field.orderable else "false" }}
+                        }{% if not loop.last %},{% endif %}
+                    {% endfor %}
+                ]
+            });
+
+            function filterColumn ( i ) {
+                $('#{{ table_id }}').DataTable().column( i ).search($('#col'+i+'_filter').val(), false, true).draw();
+            }
+
+            $('#filters').find('.column_filter').on( 'keyup click change', function () {
+                filterColumn( $(this).parents('div.field_container').attr('data-column') );
+            });
+        } );
+    </script>
+{% endblock %}
+
+
+{% block main %}
+    {% block dt_before_filters %}{% endblock %}
+    <fieldset class="list-filters">
+        <div class="col_12" id="filters">
+            {% for field in table_fields %}
+                {% if field.searching %}
+                    <div class="col_2 field_container" data-column="{{ loop.index0 }}">
+                        {{ field.render_filter(loop.index0) }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </fieldset>
+    {% block dt_before_table %}{% endblock %}
+
+    <table id="{{ table_id }}">
+    </table>
+
+    {% block dt_after_table %}{% endblock %}
+{% endblock %}
