@@ -13,15 +13,15 @@ class DTColumn(object):
             hidden=False,
             field_type="html",
             orderable=True,
-            className = "",
-            cellType = "td",
-            search_choices = None,
+            className="",
+            cellType="td",
+            search_choices=None,
             render_func=lambda m: str(m)
     ):
         self.name = name
-        self.searching=True if searching else False
+        self.searching = True if searching else False
         self.hidden = True if hidden else False
-        self.field_type=field_type
+        self.field_type = field_type
         self.orderable = True if orderable else False
         self.render_func = render_func
         self.className = str(className)

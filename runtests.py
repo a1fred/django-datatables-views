@@ -13,7 +13,7 @@ DEFAULT_SETTINGS = dict(
         "django.contrib.auth",
         "django.contrib.contenttypes",
         "django.contrib.sites",
-        "model_render",
+        "datatables_views",
     ],
     DATABASES={
         "default": {
@@ -25,7 +25,7 @@ DEFAULT_SETTINGS = dict(
     SECRET_KEY="not_a_secret",
     MIDDLEWARE_CLASSES=[],
     TEMPLATE_DIRS=(
-        os.path.join(BASE_DIR, 'test_templates'),
+        os.path.join(BASE_DIR, 'templates'),
     )
 )
 
@@ -44,11 +44,11 @@ def runtests(*test_args):
     try:
         from django.test.runner import DiscoverRunner
         runner_class = DiscoverRunner
-        test_args = ["model_render.tests"]
+        test_args = ["datatables_views.tests"]
     except ImportError:
         from django.test.simple import DjangoTestSuiteRunner
         runner_class = DjangoTestSuiteRunner
-        test_args = ["model_render"]
+        test_args = ["datatables_views"]
 
     failures = runner_class(
         verbosity=1, interactive=True, failfast=False).run_tests(test_args)
