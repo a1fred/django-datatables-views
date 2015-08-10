@@ -6,7 +6,7 @@ import django
 
 from django.conf import settings
 
-BASE_DIR = "model_render"
+BASE_DIR = "datatables_views"
 
 DEFAULT_SETTINGS = dict(
     INSTALLED_APPS=[

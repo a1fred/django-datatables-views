@@ -3,8 +3,8 @@
 
 from setuptools import setup
 
-setup(name='django-datatables-views-render',
-    version='0.1',
+setup(name='django-datatables-views',
+    version='0.2',
     description='CBV to create fast table views based on datatables.js',
     author='a1fred',
     author_email='demalf@gmail.com',
