@@ -1,3 +1,6 @@
+# Installation
+```pip install django-datatables-views```
+
 # Usage example
 
 views.py:
